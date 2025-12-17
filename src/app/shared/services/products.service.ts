@@ -14,7 +14,10 @@ import {
 export class ProductsService {
   constructor(private apiService: ApiService) {}
 
-  getPage(page: number, pageSize: number): Observable<ProductReadDtoPaginatedResultDto> {
+  getPage(
+    page: number,
+    pageSize: number
+  ): Observable<ProductReadDtoPaginatedResultDto> {
     const url = `/api/Products?page=${page}&pageSize=${pageSize}`;
     return this.apiService.get<ProductReadDtoPaginatedResultDto>(url);
   }

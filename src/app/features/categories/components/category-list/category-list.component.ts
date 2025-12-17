@@ -19,17 +19,29 @@ export class CategoryListComponent {
   form: FormGroup;
   editingCategoryId: number | null = null;
 
-  constructor(private categoriesService: CategoriesService, formBuilder: FormBuilder) {
+  constructor(
+    private categoriesService: CategoriesService,
+    formBuilder: FormBuilder
+  ) {
     this.form = formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(100),
+        ],
+      ],
     });
     this.loadPage();
   }
 
   loadPage(): void {
-    this.categoriesService.getPage(this.page, this.pageSize).subscribe(result => {
-      this.categoriesResult = result;
-    });
+    this.categoriesService
+      .getPage(this.page, this.pageSize)
+      .subscribe((result) => {
+        this.categoriesResult = result;
+      });
   }
 
   selectForEdit(category: CategoryReadDto): void {
@@ -59,10 +71,12 @@ export class CategoryListComponent {
       });
       return;
     }
-    this.categoriesService.update(this.editingCategoryId, payload).subscribe(() => {
-      this.loadPage();
-      this.resetForm();
-    });
+    this.categoriesService
+      .update(this.editingCategoryId, payload)
+      .subscribe(() => {
+        this.loadPage();
+        this.resetForm();
+      });
   }
 
   delete(categoryId: number): void {

@@ -7,6 +7,11 @@ import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [CategoryListComponent],
-  imports: [CommonModule, ReactiveFormsModule, CategoriesRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    CategoriesRoutingModule,
+    SharedModule,
+  ],
 })
 export class CategoriesModule {}

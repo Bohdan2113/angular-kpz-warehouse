@@ -7,6 +7,11 @@ import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [ProductListComponent],
-  imports: [CommonModule, ReactiveFormsModule, ProductsRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ProductsRoutingModule,
+    SharedModule,
+  ],
 })
 export class ProductsModule {}
