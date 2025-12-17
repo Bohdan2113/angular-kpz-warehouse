@@ -1,0 +1,21 @@
+<section class="feature">
+  <header class="feature-header">
+    <h1 class="feature-title">Категорії</h1>
+  </header>
+  <div class="feature-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Назва</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of (categoriesResult$ | async)?.data" appWarehouseHighlight>
+          <td>{{ category.id }}</td>
+          <td>{{ category.name | warehouse }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

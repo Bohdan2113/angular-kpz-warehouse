@@ -1,0 +1,20 @@
+<section class="dashboard" appWarehouseHighlight>
+  <header class="dashboard-header">
+    <h1 class="dashboard-title">Огляд складу</h1>
+    <p class="dashboard-subtitle">Коротка зведена інформація по категоріях та товарах</p>
+  </header>
+  <div class="dashboard-cards">
+    <div class="dashboard-card">
+      <div class="dashboard-card-label">Категорії</div>
+      <div class="dashboard-card-value">
+        {{ (overview$ | async)?.categoryCount }}
+      </div>
+    </div>
+    <div class="dashboard-card">
+      <div class="dashboard-card-label">Товари</div>
+      <div class="dashboard-card-value">
+        {{ (overview$ | async)?.productCount }}
+      </div>
+    </div>
+  </div>
+</section>

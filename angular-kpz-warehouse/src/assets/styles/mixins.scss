@@ -1,0 +1,8 @@
+@mixin card-surface {
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: radial-gradient(circle at top left, #030712, #020617);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.55);
+}
+
+

@@ -1,0 +1,16 @@
+<div class="layout">
+  <header class="layout-header">
+    <div class="layout-header-title">
+      <span class="layout-header-title-accent">Warehouse</span>
+      <span class="layout-header-title-muted">Dashboard</span>
+    </div>
+    <nav class="layout-header-nav">
+      <a routerLink="/dashboard" routerLinkActive="layout-header-link-active" class="layout-header-link">Дашборд</a>
+      <a routerLink="/categories" routerLinkActive="layout-header-link-active" class="layout-header-link">Категорії</a>
+      <a routerLink="/products" routerLinkActive="layout-header-link-active" class="layout-header-link">Товари</a>
+    </nav>
+  </header>
+  <main class="layout-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

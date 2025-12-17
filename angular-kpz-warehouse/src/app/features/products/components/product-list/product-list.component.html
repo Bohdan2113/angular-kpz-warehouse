@@ -1,0 +1,27 @@
+<section class="feature">
+  <header class="feature-header">
+    <h1 class="feature-title">Товари</h1>
+  </header>
+  <div class="feature-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Назва</th>
+          <th>Категорія</th>
+          <th>Дата додавання</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of (productsResult$ | async)?.data" appWarehouseHighlight>
+          <td>{{ product.id }}</td>
+          <td>{{ product.name | warehouse }}</td>
+          <td>{{ product.categoryName | warehouse }}</td>
+          <td>
+            {{ product.dateAdded.year }}-{{ product.dateAdded.month }}-{{ product.dateAdded.day }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
