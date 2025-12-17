@@ -3,19 +3,48 @@
     <h1 class="feature-title">Категорії</h1>
   </header>
   <div class="feature-body">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Назва</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let category of (categoriesResult$ | async)?.data" appWarehouseHighlight>
-          <td>{{ category.id }}</td>
-          <td>{{ category.name | warehouse }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <form [formGroup]="form" (ngSubmit)="save()" class="feature-form">
+      <input
+        type="text"
+        formControlName="name"
+        placeholder="Назва категорії"
+        class="feature-input"
+      />
+      <button type="submit" class="feature-button">
+        {{ editingCategoryId === null ? 'Додати' : 'Оновити' }}
+      </button>
+      <button type="button" class="feature-button feature-button-secondary" (click)="resetForm()">
+        Скинути
+      </button>
+    </form>
+    <div class="feature-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Назва</th>
+            <th>Дії</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let category of categoriesResult?.data" appWarehouseHighlight>
+            <td>{{ category.id }}</td>
+            <td>{{ category.name | warehouse }}</td>
+            <td>
+              <button type="button" class="feature-link" (click)="selectForEdit(category)">
+                Редагувати
+              </button>
+              <button
+                type="button"
+                class="feature-link feature-link-danger"
+                (click)="delete(category.id)"
+              >
+                Видалити
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>

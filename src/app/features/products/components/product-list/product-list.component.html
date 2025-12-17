@@ -3,25 +3,72 @@
     <h1 class="feature-title">Товари</h1>
   </header>
   <div class="feature-body">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Назва</th>
-          <th>Категорія</th>
-          <th>Дата додавання</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of (productsResult$ | async)?.data" appWarehouseHighlight>
-          <td>{{ product.id }}</td>
-          <td>{{ product.name | warehouse }}</td>
-          <td>{{ product.categoryName | warehouse }}</td>
-          <td>
-            {{ product.dateAdded.year }}-{{ product.dateAdded.month }}-{{ product.dateAdded.day }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <form [formGroup]="form" (ngSubmit)="save()" class="feature-form">
+      <input
+        type="text"
+        formControlName="name"
+        placeholder="Назва товару"
+        class="feature-input"
+      />
+      <select formControlName="categoryId" class="feature-input">
+        <option [ngValue]="null">Оберіть категорію</option>
+        <option *ngFor="let category of categories" [ngValue]="category.id">
+          {{ category.name | warehouse }}
+        </option>
+      </select>
+      <button type="submit" class="feature-button">
+        {{ editingProductId === null ? 'Додати' : 'Оновити' }}
+      </button>
+      <button type="button" class="feature-button feature-button-secondary" (click)="resetForm()">
+        Скинути
+      </button>
+    </form>
+    <div class="feature-filters">
+      <select (change)="changeFilter($event)" class="feature-input">
+        <option value="">Усі категорії</option>
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name | warehouse }}
+        </option>
+      </select>
+    </div>
+    <div class="feature-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Назва</th>
+            <th>Категорія</th>
+            <th>Дата додавання</th>
+            <th>Дії</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of productsResult?.data" appWarehouseHighlight>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name | warehouse }}</td>
+            <td>{{ product.categoryName | warehouse }}</td>
+            <td>
+              {{ product.dateAdded.year }}-{{ product.dateAdded.month }}-{{ product.dateAdded.day }}
+            </td>
+            <td>
+              <button
+                type="button"
+                class="feature-link"
+                (click)="selectForEdit(product.id, product.name, product.categoryId)"
+              >
+                Редагувати
+              </button>
+              <button
+                type="button"
+                class="feature-link feature-link-danger"
+                (click)="delete(product.id)"
+              >
+                Видалити
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
