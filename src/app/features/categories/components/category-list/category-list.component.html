@@ -47,4 +47,25 @@
       </table>
     </div>
   </div>
+  <div class="feature-pagination" *ngIf="categoriesResult">
+    <button
+      type="button"
+      class="feature-button"
+      (click)="previousPage()"
+      [disabled]="!categoriesResult.hasPreviousPage"
+    >
+      Попередня
+    </button>
+    <span class="feature-pagination-info">
+      Сторінка {{ categoriesResult.currentPage }} з {{ categoriesResult.totalPages }}
+    </span>
+    <button
+      type="button"
+      class="feature-button"
+      (click)="nextPage()"
+      [disabled]="!categoriesResult.hasNextPage"
+    >
+      Наступна
+    </button>
+  </div>
 </section>

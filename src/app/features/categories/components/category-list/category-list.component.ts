@@ -41,7 +41,40 @@ export class CategoryListComponent {
       .getPage(this.page, this.pageSize)
       .subscribe((result) => {
         this.categoriesResult = result;
+        this.page = result.currentPage;
+        this.pageSize = result.pageSize;
       });
+  }
+
+  changePage(page: number): void {
+    if (!this.categoriesResult) {
+      return;
+    }
+    if (page < 1 || page > this.categoriesResult.totalPages) {
+      return;
+    }
+    this.page = page;
+    this.loadPage();
+  }
+
+  nextPage(): void {
+    if (!this.categoriesResult) {
+      return;
+    }
+    if (!this.categoriesResult.hasNextPage) {
+      return;
+    }
+    this.changePage(this.categoriesResult.currentPage + 1);
+  }
+
+  previousPage(): void {
+    if (!this.categoriesResult) {
+      return;
+    }
+    if (!this.categoriesResult.hasPreviousPage) {
+      return;
+    }
+    this.changePage(this.categoriesResult.currentPage - 1);
   }
 
   selectForEdit(category: CategoryReadDto): void {

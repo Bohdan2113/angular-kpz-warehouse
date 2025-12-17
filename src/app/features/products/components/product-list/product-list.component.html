@@ -47,9 +47,7 @@
             <td>{{ product.id }}</td>
             <td>{{ product.name | warehouse }}</td>
             <td>{{ product.categoryName | warehouse }}</td>
-            <td>
-              {{ product.dateAdded.year }}-{{ product.dateAdded.month }}-{{ product.dateAdded.day }}
-            </td>
+            <td>{{ formatDate(product.dateAdded) }}</td>
             <td>
               <button
                 type="button"
@@ -69,6 +67,27 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="feature-pagination" *ngIf="productsResult">
+      <button
+        type="button"
+        class="feature-button"
+        (click)="previousPage()"
+        [disabled]="!productsResult.hasPreviousPage"
+      >
+        Попередня
+      </button>
+      <span class="feature-pagination-info">
+        Сторінка {{ productsResult.currentPage }} з {{ productsResult.totalPages }}
+      </span>
+      <button
+        type="button"
+        class="feature-button"
+        (click)="nextPage()"
+        [disabled]="!productsResult.hasNextPage"
+      >
+        Наступна
+      </button>
     </div>
   </div>
 </section>

@@ -55,6 +55,8 @@ export class ProductListComponent {
         .getPage(this.page, this.pageSize)
         .subscribe((result) => {
           this.productsResult = result;
+          this.page = result.currentPage;
+          this.pageSize = result.pageSize;
         });
       return;
     }
@@ -62,6 +64,8 @@ export class ProductListComponent {
       .getByCategory(this.filterCategoryId, this.page, this.pageSize)
       .subscribe((result) => {
         this.productsResult = result;
+        this.page = result.currentPage;
+        this.pageSize = result.pageSize;
       });
   }
 
@@ -75,6 +79,68 @@ export class ProductListComponent {
     }
     this.filterCategoryId = Number(value);
     this.loadPage();
+  }
+
+  changePage(page: number): void {
+    if (!this.productsResult) {
+      return;
+    }
+    if (page < 1 || page > this.productsResult.totalPages) {
+      return;
+    }
+    this.page = page;
+    this.loadPage();
+  }
+
+  nextPage(): void {
+    if (!this.productsResult) {
+      return;
+    }
+    if (!this.productsResult.hasNextPage) {
+      return;
+    }
+    this.changePage(this.productsResult.currentPage + 1);
+  }
+
+  previousPage(): void {
+    if (!this.productsResult) {
+      return;
+    }
+    if (!this.productsResult.hasPreviousPage) {
+      return;
+    }
+    this.changePage(this.productsResult.currentPage - 1);
+  }
+
+  formatDate(value: unknown): string {
+    if (!value) {
+      return '';
+    }
+    if (
+      typeof value === 'string' ||
+      value instanceof Date ||
+      typeof value === 'number'
+    ) {
+      const date = new Date(value);
+      if (isNaN(date.getTime())) {
+        return '';
+      }
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const day = date.getDate().toString().padStart(2, '0');
+      return `${day}.${month}.${year}`;
+    }
+    const dateOnly = value as { year: number; month: number; day: number };
+    if (
+      typeof dateOnly.year === 'number' &&
+      typeof dateOnly.month === 'number' &&
+      typeof dateOnly.day === 'number'
+    ) {
+      const month = dateOnly.month.toString().padStart(2, '0');
+      const day = dateOnly.day.toString().padStart(2, '0');
+      return `${day}.${month}.${dateOnly.year}`;
+    }
+    return '';
   }
 
   selectForEdit(
